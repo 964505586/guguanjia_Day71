@@ -23,8 +23,6 @@ public class SysOfficeController {
 
     @RequestMapping("list")
     public List<SysOffice> selectAll() {
-        System.out.println("---------------------------------------------------------------------------------------------------------");
-        System.out.println(sysOfficeService.selectAll());
         return sysOfficeService.selectAll();
     }
 

@@ -1,5 +1,8 @@
 package com.dfbz.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -9,6 +12,10 @@ public class SysArea {
      * 编号
      */
     @Id
+    /*
+    ExcelProperty设置属性对应到excel上表头的位置字段名
+     */
+    @ExcelProperty("编号")
     private Long id;
 
     /**
@@ -48,6 +55,9 @@ public class SysArea {
      * 创建时间
      */
     @Column(name = "create_date")
+//    @org.springframework.format.annotation.DateTimeFormat
+    @DateTimeFormat("yyyy-MM-dd")   // 提供日期格式自定义的注解
+//    @NumberFormat // 提供数字格式化注解
     private Date createDate;
 
     /**
