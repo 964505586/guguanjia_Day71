@@ -11,6 +11,7 @@ import com.dfbz.mapper.SysAreaMapper;
 import com.dfbz.service.SysAreaService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -30,6 +31,7 @@ import java.util.Map;
 @Transactional
 public class SysAreaServiceImpl extends ServiceImpl<SysArea> implements SysAreaService {
 
+    @Autowired
     SysAreaMapper sysAreaMapper;
 
     /**
@@ -58,11 +60,29 @@ public class SysAreaServiceImpl extends ServiceImpl<SysArea> implements SysAreaS
      */
     @Override
     public int readExcel(InputStream inputStream) {
+        int result = 0;
         ExcelReader excel = EasyExcel.read(inputStream, SysArea.class, new SysAreaListener(sysAreaMapper)).build();
         ReadSheet sheet = EasyExcel.readSheet(0).build();
         excel.read(sheet);
         excel.finish();
-        return 1;
+        return ++result;
     }
+
+    @Override
+    public PageInfo<SysArea> selectByCondition(Map<String, Object> map) {
+        if (StringUtils.isEmpty(map.get("pageNum"))) {
+            map.put("pageNum", 1);
+        }
+        if (StringUtils.isEmpty(map.get("pageSize"))) {
+            map.put("pageSize", 4);
+        }
+        PageHelper.startPage((int)map.get("pageNum"), (int)map.get("pageSize"));
+        if (map.containsKey("name") && !StringUtils.isEmpty(map.get("name"))) {
+            map.put("name", map.get("name"));
+        }
+        return new PageInfo<>(sysAreaMapper.selectByCondition(map));
+    }
+
+
 
 }

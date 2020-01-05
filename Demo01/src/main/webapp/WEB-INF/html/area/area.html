@@ -188,58 +188,7 @@
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div>
-                                                <ul id="treeMenu" class="ztree">
-                                                    <li id="treeMenu_1" class="level0" tabindex="0" hidefocus="true"
-                                                        treenode=""><span id="treeMenu_1_switch" title=""
-                                                                          class="button level0 switch root_open"
-                                                                          treenode_switch=""></span><a id="treeMenu_1_a"
-                                                                                                       class="level0 curSelectedNode"
-                                                                                                       treenode_a=""
-                                                                                                       onclick=""
-                                                                                                       target="_blank"
-                                                                                                       style="font-weight:normal;color:#333;"
-                                                                                                       title="区域列表"><span
-                                                            id="treeMenu_1_ico" title="" treenode_ico=""
-                                                            class="button ico_open" style=""></span><span
-                                                            id="treeMenu_1_span">区域列表</span><span class="button add"
-                                                                                                  id="addBtn_treeMenu_1"
-                                                                                                  title="添加"
-                                                                                                  onfocus="this.blur();"></span></a>
-                                                        <ul id="treeMenu_1_ul" class="level0 " style="display:block">
-                                                            <li id="treeMenu_2" class="level1" tabindex="0"
-                                                                hidefocus="true" treenode=""><span
-                                                                    id="treeMenu_2_switch" title=""
-                                                                    class="button level1 switch bottom_open"
-                                                                    treenode_switch=""></span><a id="treeMenu_2_a"
-                                                                                                 class="level1"
-                                                                                                 treenode_a=""
-                                                                                                 onclick=""
-                                                                                                 target="_blank"
-                                                                                                 style="font-weight:normal;color:#333;"
-                                                                                                 title="中国"><span
-                                                                    id="treeMenu_2_ico" title="" treenode_ico=""
-                                                                    class="button cusicon ace-icon ico fa fa-institution"
-                                                                    style=""></span><span id="treeMenu_2_span">中国</span></a>
-                                                                <ul id="treeMenu_2_ul" class="level1 "
-                                                                    style="display: block;">
-                                                                    <li id="treeMenu_3" class="level2" tabindex="0"
-                                                                        hidefocus="true" treenode=""><span
-                                                                            id="treeMenu_3_switch" title=""
-                                                                            class="button level2 switch bottom_docu"
-                                                                            treenode_switch=""></span><a
-                                                                            id="treeMenu_3_a" class="level2"
-                                                                            treenode_a="" onclick="" target="_blank"
-                                                                            style="font-weight:normal;color:#333;"
-                                                                            title="重庆市"><span id="treeMenu_3_ico"
-                                                                                              title="" treenode_ico=""
-                                                                                              class="button cusicon ace-icon ico fa fa-smile-o"
-                                                                                              style=""></span><span
-                                                                            id="treeMenu_3_span">重庆市</span></a></li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+                                                <ul id="treeMenu" class="ztree"></ul>
                                             </div>
                                         </div>
                                         <div class="col-sm-9" id="list-page">
@@ -255,79 +204,24 @@
                                                 </thead>
 
                                                 <tbody>
-                                                <tr>
+                                                <tr v-for="area in pageInfo.list">
                                                     <td class="center">
-                                                        <a href="detail.html"
-                                                           data-title="<重庆市>详情" data-mode="detail"
-                                                           data-url="area/detail/showlayer"
-                                                           data-data="{id:'2'}"
-                                                        >重庆市</a>
+                                                        <a href="detail.html">{{area.name}}</a>
                                                     </td>
+                                                    <td class="center">{{area.code}}</td>
+                                                    <td class="center">{{area.parentName}}</td>
                                                     <td class="center">
-                                                        110000
-                                                    </td>
-                                                    <td class="center">
-                                                        中国
-                                                    </td>
-                                                    <td class="center">
-                                                        省份、直辖市
+                                                        <span v-if="area.type == 1">国家</span>
+                                                        <span v-else-if="area.type == 2">省份、直辖市</span>
+                                                        <span v-else-if="area.type == 3">地级市</span>
+                                                        <span v-else-if="area.type == 4">区域</span>
                                                     </td>
                                                     <td class="center">
                                                         <div class="hidden-sm hidden-xs action-buttons">
-                                                            <a class="green" href="save.html"
-                                                               data-mode="page" data-title="<重庆市>编辑"
-                                                               data-url="area/edit/showlayer"
-                                                               data-data="{id:'2',parentId:'1'}"
-                                                               data-width="50%"
-                                                            >
+                                                            <a class="green" @click="toUpdate(area.id)">
                                                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                                                             </a>
-
-                                                            <a class="red" href="javascript:void(0);"
-                                                               data-mode="del" data-title="删除操作"
-                                                               data-msg="<span class='red bigger-120'>你确定删除<重庆市>吗?</span>"
-                                                               data-url="area/delete" data-data="{id:'2'}"
-                                                            >
-                                                                <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="center">
-                                                        <a href="detail.html"
-                                                           data-title="<中国>详情" data-mode="detail"
-                                                           data-url="area/detail/showlayer"
-                                                           data-data="{id:'1'}"
-                                                        >中国</a>
-                                                    </td>
-                                                    <td class="center">
-                                                        100000
-                                                    </td>
-                                                    <td class="center">
-
-                                                    </td>
-                                                    <td class="center">
-                                                        国家
-                                                    </td>
-                                                    <td class="center">
-                                                        <div class="hidden-sm hidden-xs action-buttons">
-                                                            <a class="green" href="save.html"
-                                                               data-mode="page" data-title="<中国>编辑"
-
-                                                               data-url="area/edit/showlayer"
-                                                               data-data="{id:'1',parentId:''}"
-
-                                                               data-width="50%"
-                                                            >
-                                                                <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                                            </a>
-
-                                                            <a class="red" href="javascript:void(0);"
-                                                               data-mode="del" data-title="删除操作"
-                                                               data-msg="<span class='red bigger-120'>你确定删除<中国>吗?</span>"
-                                                               data-url="area/delete" data-data="{id:'1'}"
-                                                            >
+                                                            <a class="red" @click="deleteById(area.id)">
                                                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                                             </a>
                                                         </div>
@@ -340,24 +234,35 @@
                                             <div class="clearfix">
                                                 <div style="float: left;">
                                                     <div style="padding-top:5px;">
-			<span class="badge badge-info">
-				当前第 1 页 / 1 页，共 2 条数据
-			</span>
+                                                    <span class="badge badge-info">
+                                                        当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+                                                    </span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="pagination no-margin pull-right clearfix">
-                                                        <li class="prev disabled"><a href="javascript:void(0);" onclick="">首页</a>
+                                                        <li class="prev">
+                                                            <a href="javascript:void(0);" @click="selectAll(1, pageInfo.pageSize)">首页</a>
                                                         </li>
-                                                        <li class="prev disabled"><a href="javascript:void(0);" onclick="">上一页</a>
+                                                        <li class="prev" v-if="pageInfo.hasPreviousPage"><a
+                                                                href="javascript:void(0);"
+                                                                @click="selectAll(pageInfo.prePage, pageInfo.pageSize)">上一页</a>
                                                         </li>
-                                                        <li class="active"><a href="javascript:void(0);" onclick="">1</a>
+                                                        <li class="prev disabled" v-else="!pageInfo.hasPreviousPage"><a
+                                                                href="javascript:void(0);">上一页</a></li>
+                                                        <li :class="pageInfo.pageNum == num ? 'active' : ''"
+                                                            v-for="num in pageInfo.navigatepageNums">
+                                                            <a href="javascript:void(0);"
+                                                               @click="selectAll(num, pageInfo.pageSize)">{{num}}</a>
                                                         </li>
-                                                        <li class="next disabled">
-                                                            <a href="javascript:void(0);" onclick="">下一页</a>
+                                                        <li class="next" v-if="pageInfo.hasNextPage"><a
+                                                                href="javascript:void(0);"
+                                                                @click="selectAll(pageInfo.nextPage, pageInfo.pageSize)">下一页</a>
                                                         </li>
-                                                        <li class="next disabled">
-                                                            <a href="javascript:void(0);" onclick="">尾页</a>
+                                                        <li class="next disabled" v-else="!pageInfo.hasNextPage"><a
+                                                                href="javascript:void(0);">下一页</a></li>
+                                                        <li class="next"><a href="javascript:void(0);"
+                                                                            @click="selectAll(pageInfo.pages, pageInfo.pageSize)">尾页</a>
                                                         </li>
                                                     </div>
                                                 </div>

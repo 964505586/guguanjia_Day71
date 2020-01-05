@@ -1,8 +1,11 @@
 package com.dfbz.controller;
 
 import com.dfbz.entity.Result;
+import com.dfbz.entity.SysArea;
 import com.dfbz.service.SysAreaService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @ClassName: SysAreaController
@@ -46,13 +50,12 @@ public class SysAreaController {
         response.setHeader("Content-Disposition", "attachment;filename=sysArea.xls");
         ServletOutputStream outputStream = response.getOutputStream();
         sysAreaService.writeExcel(outputStream);
-        MultipartFile file;
     }
 
     @RequestMapping("upload")
-    public Result upload(MultipartFile file) throws IOException {
+    public Result upload(MultipartFile upFile) throws IOException {
         Result result = new Result();
-        int i = sysAreaService.readExcel(file.getInputStream());
+        int i = sysAreaService.readExcel(upFile.getInputStream());
         if (i > 0) {
             result.setMsg("导入数据成功");
             result.setSuccess(true);
@@ -60,6 +63,17 @@ public class SysAreaController {
         return result;
     }
 
+    @RequestMapping("index")
+    public PageInfo<SysArea> index(@RequestBody Map<String, Object> map) {
+        return sysAreaService.selectByCondition(map);
+    }
+
+//    @RequestMapping("toUpdate")
+//    public SysArea toUpdate(Integer id) {
+//
+//
+//
+//    }
 
 
 }
